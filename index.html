@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAPS History Lesson Plan Generator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <i class="fas fa-book-open fa-2x header-icon"></i>
+      <h1>South African CAPS History Lesson Generator</h1>
+      <p>Grades 4–7 | Term 1–4 | CAPS Curriculum</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <form id="lessonForm">
+      <div class="form-group">
+        <label for="grade">Grade:</label>
+        <select id="grade" required>
+          <option value="">--Select--</option>
+          <option value="4">Grade 4</option>
+          <option value="5">Grade 5</option>
+          <option value="6">Grade 6</option>
+          <option value="7">Grade 7</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="term">Term:</label>
+        <select id="term" required>
+          <option value="">--Select--</option>
+          <option value="1">Term 1</option>
+          <option value="2">Term 2</option>
+          <option value="3">Term 3</option>
+          <option value="4">Term 4</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="lessonStyle">Lesson Style:</label>
+        <select id="lessonStyle" required>
+          <option value="">--Select--</option>
+          <option value="Theory">Theory</option>
+          <option value="Activity-Based">Activity-Based</option>
+          <option value="Mixed">Mixed (Theory + Activities)</option>
+          <option value="Assessment-Focused">Assessment-Focused</option>
+          <option value="Revision">Revision & Recap</option>
+        </select>
+      </div>
+
+      <button type="submit" id="generateBtn">
+        <span class="button-text">Generate Lesson Plan</span>
+        <span class="loading-spinner" style="display: none;">⌛</span>
+      </button>
+    </form>
+
+    <div id="output">
+      <h2>Generated Lesson Plan:</h2>
+      <div class="output-container">
+        <pre id="lessonContent">Select your options and click "Generate Lesson Plan" to create a CAPS-aligned History lesson plan.</pre>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 CAPS Lesson Generator | Created by Masego | Powered by Gemini API</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
