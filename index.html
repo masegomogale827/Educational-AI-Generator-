@@ -10,16 +10,186 @@
 <body>
   <header>
     <div class="header-content">
-      <i class="fas fa-book-open fa-2x header-icon"></i>
+      <div class="header-icon-container">
+        <i class="fas fa-book-open fa-2x header-icon"></i>
+        <i class="fas fa-graduation-cap fa-1x floating-icon"></i>
+        <i class="fas fa-lightbulb fa-1x floating-icon"></i>
+      </div>
       <h1>South African CAPS History Lesson Generator</h1>
-      <p>Grades 4–7 | Term 1–4 | CAPS Curriculum</p>
+      <p><i class="fas fa-star"></i> Grades 4–7 | Term 1–4 | CAPS Curriculum <i class="fas fa-star"></i></p>
     </div>
   </header>
 
   <main class="container">
+    <!-- Documentation Section -->
+    <div class="documentation-section">
+      <button id="toggleDocs" class="docs-toggle-btn">
+        <i class="fas fa-info-circle pulse-icon"></i> API Documentation & Usage Costs
+        <i class="fas fa-chevron-down" id="docsIcon"></i>
+      </button>
+      
+      <div id="documentationContent" class="docs-content" style="display: none;">
+        <div class="docs-grid">
+          <!-- Rate Limits -->
+          <div class="docs-card">
+            <div class="docs-card-header">
+              <i class="fas fa-tachometer-alt bounce-icon"></i>
+              <h3>Rate Limits</h3>
+            </div>
+            <div class="docs-card-content">
+              <div class="limit-item">
+                <span class="limit-label"><i class="fas fa-clock"></i> Requests per minute:</span>
+                <span class="limit-value">60</span>
+              </div>
+              <div class="limit-item">
+                <span class="limit-label"><i class="fas fa-hourglass-half"></i> Requests per hour:</span>
+                <span class="limit-value">3,600</span>
+              </div>
+              <div class="limit-item">
+                <span class="limit-label"><i class="fas fa-calendar-day"></i> Requests per day:</span>
+                <span class="limit-value">86,400</span>
+              </div>
+              <div class="limit-item">
+                <span class="limit-label"><i class="fas fa-tokens"></i> Max tokens per request:</span>
+                <span class="limit-value">2,048</span>
+              </div>
+              <div class="limit-item">
+                <span class="limit-label"><i class="fas fa-file-text"></i> Max input tokens:</span>
+                <span class="limit-value">8,192</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Usage Costs -->
+          <div class="docs-card">
+            <div class="docs-card-header">
+              <i class="fas fa-dollar-sign bounce-icon"></i>
+              <h3>Usage Costs</h3>
+            </div>
+            <div class="docs-card-content">
+              <div class="cost-item">
+                <span class="cost-label"><i class="fas fa-arrow-down"></i> Input tokens:</span>
+                <span class="cost-value">$0.00025 / 1K tokens</span>
+              </div>
+              <div class="cost-item">
+                <span class="cost-label"><i class="fas fa-arrow-up"></i> Output tokens:</span>
+                <span class="cost-value">$0.0005 / 1K tokens</span>
+              </div>
+              <div class="cost-item">
+                <span class="cost-label"><i class="fas fa-file-alt"></i> Typical lesson plan:</span>
+                <span class="cost-value">~$0.01 - $0.03</span>
+              </div>
+              <div class="cost-item">
+                <span class="cost-label"><i class="fas fa-calendar-alt"></i> Monthly estimate (100 plans):</span>
+                <span class="cost-value">~$1.00 - $3.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Best Practices -->
+          <div class="docs-card">
+            <div class="docs-card-header">
+              <i class="fas fa-lightbulb bounce-icon"></i>
+              <h3>Best Practices</h3>
+            </div>
+            <div class="docs-card-content">
+              <ul class="best-practices-list">
+                <li><i class="fas fa-chart-line"></i> Monitor your token usage in the performance metrics</li>
+                <li><i class="fas fa-magic"></i> Use specific lesson styles to reduce token consumption</li>
+                <li><i class="fas fa-save"></i> Save successful lesson plans to avoid regeneration</li>
+                <li><i class="fas fa-eye"></i> Check your API quota regularly</li>
+                <li><i class="fas fa-clock"></i> Consider batch generation during off-peak hours</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- API Information -->
+          <div class="docs-card">
+            <div class="docs-card-header">
+              <i class="fas fa-cog bounce-icon"></i>
+              <h3>API Information</h3>
+            </div>
+            <div class="docs-card-content">
+              <div class="api-item">
+                <span class="api-label"><i class="fas fa-robot"></i> Model:</span>
+                <span class="api-value">Gemini 2.0 Flash</span>
+              </div>
+              <div class="api-item">
+                <span class="api-label"><i class="fas fa-thermometer-half"></i> Temperature:</span>
+                <span class="api-value">0.7</span>
+              </div>
+              <div class="api-item">
+                <span class="api-label"><i class="fas fa-expand-arrows-alt"></i> Max Output:</span>
+                <span class="api-value">2,048 tokens</span>
+              </div>
+              <div class="api-item">
+                <span class="api-label"><i class="fas fa-google"></i> Provider:</span>
+                <span class="api-value">Google AI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Usage Calculator -->
+        <div class="usage-calculator">
+          <h3><i class="fas fa-calculator bounce-icon"></i> Cost Calculator</h3>
+          <div class="calculator-inputs">
+            <div class="calc-input-group">
+              <label for="inputTokens"><i class="fas fa-arrow-down"></i> Input Tokens:</label>
+              <input type="number" id="inputTokens" placeholder="e.g., 150" min="0">
+            </div>
+            <div class="calc-input-group">
+              <label for="outputTokens"><i class="fas fa-arrow-up"></i> Output Tokens:</label>
+              <input type="number" id="outputTokens" placeholder="e.g., 800" min="0">
+            </div>
+            <div class="calc-input-group">
+              <label for="numRequests"><i class="fas fa-hashtag"></i> Number of Requests:</label>
+              <input type="number" id="numRequests" placeholder="e.g., 10" min="1" value="1">
+            </div>
+          </div>
+          <div class="calculator-result">
+            <div class="result-item">
+              <span class="result-label"><i class="fas fa-dollar-sign"></i> Total Cost:</span>
+              <span class="result-value" id="totalCost">$0.00</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label"><i class="fas fa-calculator"></i> Cost per Request:</span>
+              <span class="result-value" id="costPerRequest">$0.00</span>
+            </div>
+          </div>
+          <button id="calculateCost" class="calc-btn">
+            <i class="fas fa-calculator"></i> Calculate Cost
+          </button>
+        </div>
+
+        <!-- Important Notes -->
+        <div class="important-notes">
+          <h3><i class="fas fa-exclamation-triangle pulse-icon"></i> Important Notes</h3>
+          <div class="notes-content">
+            <div class="note-item">
+              <i class="fas fa-info-circle"></i>
+              <span>Costs are estimates based on current Google AI pricing. Actual costs may vary.</span>
+            </div>
+            <div class="note-item">
+              <i class="fas fa-clock"></i>
+              <span>Rate limits are enforced by Google AI. Exceeding limits will result in errors.</span>
+            </div>
+            <div class="note-item">
+              <i class="fas fa-shield-alt"></i>
+              <span>Your API key is stored locally and never shared with external services.</span>
+            </div>
+            <div class="note-item">
+              <i class="fas fa-chart-line"></i>
+              <span>Monitor your usage through the performance metrics section above.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <form id="lessonForm">
       <div class="form-group">
-        <label for="grade">Grade:</label>
+        <label for="grade"><i class="fas fa-user-graduate"></i> Grade:</label>
         <select id="grade" required>
           <option value="">--Select--</option>
           <option value="4">Grade 4</option>
@@ -30,7 +200,7 @@
       </div>
 
       <div class="form-group">
-        <label for="term">Term:</label>
+        <label for="term"><i class="fas fa-calendar-alt"></i> Term:</label>
         <select id="term" required>
           <option value="">--Select--</option>
           <option value="1">Term 1</option>
@@ -41,35 +211,150 @@
       </div>
 
       <div class="form-group">
-        <label for="lessonStyle">Lesson Style:</label>
+        <label for="lessonStyle"><i class="fas fa-palette"></i> Lesson Style:</label>
         <select id="lessonStyle" required>
           <option value="">--Select--</option>
-          <option value="Theory">Theory</option>
-          <option value="Activity-Based">Activity-Based</option>
-          <option value="Mixed">Mixed (Theory + Activities)</option>
-          <option value="Assessment-Focused">Assessment-Focused</option>
-          <option value="Revision">Revision & Recap</option>
+          <option value="Theory"><i class="fas fa-book"></i> Theory</option>
+          <option value="Activity-Based"><i class="fas fa-hands-helping"></i> Activity-Based</option>
+          <option value="Mixed"><i class="fas fa-balance-scale"></i> Mixed (Theory + Activities)</option>
+          <option value="Assessment-Focused"><i class="fas fa-clipboard-check"></i> Assessment-Focused</option>
+          <option value="Revision"><i class="fas fa-redo"></i> Revision & Recap</option>
         </select>
       </div>
 
       <button type="submit" id="generateBtn">
-        <span class="button-text">Generate Lesson Plan</span>
-        <span class="loading-spinner" style="display: none;">⌛</span>
+        <span class="button-text"><i class="fas fa-magic"></i> Generate Lesson Plan</span>
+        <span class="loading-spinner" style="display: none;"><i class="fas fa-spinner fa-spin"></i></span>
       </button>
     </form>
 
+    <!-- Performance Metrics Section -->
+    <div id="performanceMetrics" class="performance-section" style="display: none;">
+      <h3><i class="fas fa-chart-line pulse-icon"></i> Performance Metrics</h3>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon">
+            <i class="fas fa-clock bounce-icon"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Generation Time</div>
+            <div class="metric-value" id="generationTime">--</div>
+          </div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-icon">
+            <i class="fas fa-tokens bounce-icon"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Input Tokens</div>
+            <div class="metric-value" id="inputTokens">--</div>
+          </div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-icon">
+            <i class="fas fa-file-text bounce-icon"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Output Tokens</div>
+            <div class="metric-value" id="outputTokens">--</div>
+          </div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-icon">
+            <i class="fas fa-calculator bounce-icon"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Total Tokens</div>
+            <div class="metric-value" id="totalTokens">--</div>
+          </div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-icon">
+            <i class="fas fa-tachometer-alt bounce-icon"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Tokens/Second</div>
+            <div class="metric-value" id="tokensPerSecond">--</div>
+          </div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-icon">
+            <i class="fas fa-calendar-check bounce-icon"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Generated Today</div>
+            <div class="metric-value" id="generatedToday">--</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Performance History -->
+      <div class="performance-history">
+        <h4><i class="fas fa-history pulse-icon"></i> Recent Performance</h4>
+        <div id="performanceHistory" class="history-list">
+          <!-- Performance history will be populated here -->
+        </div>
+        <button id="clearPerformanceHistory" class="clear-btn">
+          <i class="fas fa-trash"></i> Clear History
+        </button>
+      </div>
+    </div>
+
     <div id="output">
-      <h2>Generated Lesson Plan:</h2>
+      <h2><i class="fas fa-file-alt"></i> Generated Lesson Plan:</h2>
       <div class="output-container">
         <pre id="lessonContent">Select your options and click "Generate Lesson Plan" to create a CAPS-aligned History lesson plan.</pre>
       </div>
+      
+      <!-- Export/Save Buttons -->
+      <div id="exportButtons" class="export-section" style="display: none;">
+        <h3><i class="fas fa-download"></i> Save & Export Options:</h3>
+        <div class="export-buttons">
+          <button id="saveToLocal" class="export-btn">
+            <i class="fas fa-save bounce-icon"></i> Save to Browser
+          </button>
+          <button id="exportPDF" class="export-btn">
+            <i class="fas fa-file-pdf bounce-icon"></i> Export as PDF
+          </button>
+          <button id="exportWord" class="export-btn">
+            <i class="fas fa-file-word bounce-icon"></i> Export as Word
+          </button>
+          <button id="exportText" class="export-btn">
+            <i class="fas fa-file-alt bounce-icon"></i> Export as Text
+          </button>
+          <button id="downloadFile" class="export-btn">
+            <i class="fas fa-download bounce-icon"></i> Download File
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Saved Results History -->
+    <div id="savedResults" class="saved-results-section">
+      <h3><i class="fas fa-archive"></i> Saved Lesson Plans:</h3>
+      <div id="savedResultsList" class="saved-results-list">
+        <!-- Saved results will be populated here -->
+      </div>
+      <button id="clearAllSaved" class="clear-btn" style="display: none;">
+        <i class="fas fa-trash"></i> Clear All Saved
+      </button>
     </div>
   </main>
 
   <footer>
-    <p>&copy; 2024 CAPS Lesson Generator | Created by Masego | Powered by Gemini API</p>
+    <p><i class="fas fa-heart pulse-icon"></i> &copy; 2024 CAPS Lesson Generator | Created by Masego | Powered by Gemini API <i class="fas fa-heart pulse-icon"></i></p>
   </footer>
 
+  <!-- External libraries for export functionality -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.5.0/docx.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  
   <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
